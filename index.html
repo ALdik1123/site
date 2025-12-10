@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>RealtyKZ — Элитная недвижимость Казахстана 2025</title>
   <meta name="description" content="Продажа и аренда премиальной недвижимости в Алматы, Астане и по всему Казахстану" />
-  
+ 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
@@ -13,7 +13,6 @@
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 </head>
 <body>
-
 <header>
   <div class="container header-flex">
     <div class="logo">Realty<span class="accent">KZ</span></div>
@@ -36,7 +35,6 @@
     </div>
   </div>
 </header>
-
 <section class="hero animated-gradient" id="home">
   <div class="particles"></div>
   <div class="slides">
@@ -57,7 +55,15 @@
     </div>
   </div>
 </section>
-
+<section class="featured-section">
+  <div class="container">
+    <h2 class="section-title" data-aos="fade-down">
+      <span class="ru">Топ предложений</span>
+      <span class="kk">Үздік ұсыныстар</span>
+    </h2>
+    <div class="grid" id="featuredCards"></div>
+  </div>
+</section>
 <section id="catalog" class="section">
   <div class="container">
     <h2 class="section-title" data-aos="fade-down"><span class="ru">Продажа недвижимости</span><span class="kk">Жылжымайтын мүлік сату</span></h2>
@@ -67,7 +73,6 @@
     <div class="grid" id="saleCards"></div>
   </div>
 </section>
-
 <section id="rental" class="section bg-light">
   <div class="container">
     <h2 class="section-title" data-aos="fade-down"><span class="ru">Аренда недвижимости</span><span class="kk">Жалға беру</span></h2>
@@ -77,7 +82,6 @@
     <div class="grid" id="rentalCards"></div>
   </div>
 </section>
-
 <section id="about" class="section dark">
   <div class="container">
     <h2 class="section-title" data-aos="fade-down"><span class="ru">О нас</span><span class="kk">Біз туралы</span></h2>
@@ -90,7 +94,6 @@
     </div>
   </div>
 </section>
-
 <section id="contact" class="section">
   <div class="container">
     <h2 class="section-title" data-aos="fade-down"><span class="ru">Контакты</span><span class="kk">Байланыс</span></h2>
@@ -115,7 +118,6 @@
     </form>
   </div>
 </section>
-
 <!-- Полноэкранный раздел для деталей объявления -->
 <section id="propertyDetail" class="section" style="display:none; padding:60px 0; background:#f8fafc;">
   <div class="container">
@@ -129,13 +131,10 @@
     </div>
   </div>
 </section>
-
 <div class="whatsapp-float" onclick="window.open('https://wa.me/77714829862','_blank')">
   <i class="fab fa-whatsapp"></i>
 </div>
-
 <div id="cursor-trail"></div>
-
 <!-- Модалы -->
 <div id="loginModal" class="modal">
   <div class="modal-content">
@@ -153,7 +152,6 @@
     <p><span class="ru">Нет аккаунта?</span><span class="kk">Аккаунт жоқ па?</span> <a onclick="openRegisterModal()">Зарегистрироваться</a></p>
   </div>
 </div>
-
 <div id="registerModal" class="modal">
   <div class="modal-content">
     <span class="close" onclick="closeModal('registerModal')">&times;</span>
@@ -173,7 +171,6 @@
     <button class="btn primary" onclick="register()">Зарегистрироваться</button>
   </div>
 </div>
-
 <div id="adminPanel" class="modal">
   <div class="modal-content large">
     <span class="close" onclick="closeModal('adminPanel')">&times;</span>
@@ -240,7 +237,6 @@
     </div>
   </div>
 </div>
-
 <div id="requestModal" class="modal">
   <div class="modal-content">
     <span class="close" onclick="closeModal('requestModal')">&times;</span>
@@ -263,7 +259,6 @@
     </form>
   </div>
 </div>
-
 <div id="editPropertyModal" class="modal">
   <div class="modal-content large">
     <span class="close" onclick="closeModal('editPropertyModal')">&times;</span>
@@ -271,7 +266,6 @@
     <div id="editPropertyForm"></div>
   </div>
 </div>
-
 <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 <script src="js/tilt.js"></script>
 <script src="js/data.js"></script>
