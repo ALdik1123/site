@@ -1,6 +1,5 @@
 // js/main.js
 AOS.init({duration:1200,easing:'ease-in-out',once:false});
-
 function setLang(l) {
   document.body.setAttribute('data-lang', l);
   localStorage.setItem('lang', l);
@@ -8,18 +7,18 @@ function setLang(l) {
   document.querySelectorAll('.' + l).forEach(el => el.style.display = 'block');
   document.querySelectorAll('.lang button').forEach(b => b.classList.remove('active'));
   document.querySelector(`.lang button[onclick="setLang('${l}')"]`).classList.add('active');
-  render('sale'); render('rental');
+  render('sale'); render('rental'); renderFeatured();
 }
 setLang(localStorage.getItem('lang') || 'ru');
-
 function instantScroll(t) { document.querySelector(t).scrollIntoView({behavior:'instant'}); }
-
 window.addEventListener('load', () => {
   createParticles();
   startSlideShow();
   updateAuthUI();
+  render('sale');
+  render('rental');
+  renderFeatured();
 });
-
 function createParticles() {
   const container = document.querySelector('.particles');
   setInterval(() => {
@@ -32,7 +31,6 @@ function createParticles() {
     setTimeout(() => p.remove(), 20000);
   }, 300);
 }
-
 document.addEventListener('mousemove', e => {
   const trail = document.getElementById('cursor-trail');
   const dot = document.createElement('div');
@@ -42,7 +40,6 @@ document.addEventListener('mousemove', e => {
   trail.appendChild(dot);
   setTimeout(() => dot.remove(), 1000);
 });
-
 let currentSlide = 0;
 function startSlideShow() {
   const slides = document.querySelectorAll('.slide');
@@ -52,13 +49,27 @@ function startSlideShow() {
     slides[currentSlide].classList.add('active');
   }, 5000);
 }
-
+function renderFeatured() {
+  const lang = document.body.getAttribute('data-lang') === 'kk' ? 'kk' : 'ru';
+  const container = document.getElementById('featuredCards');
+  container.innerHTML = featuredProperties.map((p,i) => `
+    <div class="card" data-aos="fade-up" data-aos-delay="${i*150}" onclick="showFullProperty('sale', ${p.id})">
+      <img src="${p.images[0]}" loading="lazy">
+      <div class="card-body">
+        <h3>${p[lang]}</h3>
+        <div class="price">${p.price.toLocaleString()} ₸</div>
+        <div class="tags">${p.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+      </div>
+    </div>
+  `).join('');
+  AOS.refresh();
+}
 function render(cat) {
   const lang = document.body.getAttribute('data-lang') === 'kk' ? 'kk' : 'ru';
   const container = document.getElementById(cat + 'Cards');
   const search = document.getElementById('search' + (cat==='sale'?'Sale':'Rental'))?.value.toLowerCase() || '';
   const filtered = properties[cat].filter(p => p[lang].toLowerCase().includes(search));
-  
+ 
   container.innerHTML = filtered.map((p,i) => `
     <div class="card" data-aos="fade-up" data-aos-delay="${i*150}" onclick="showFullProperty('${cat}', ${p.id})">
       <img src="${p.images[0]}" loading="lazy">
@@ -71,12 +82,10 @@ function render(cat) {
   `).join('');
   AOS.refresh();
 }
-
 render('sale'); render('rental');
-
 function showFullProperty(cat, id) {
   const lang = document.body.getAttribute('data-lang') === 'kk' ? 'kk' : 'ru';
-  const prop = properties[cat].find(p => p.id === id);
+  const prop = properties[cat].find(p => p.id === id) || featuredProperties.find(p => p.id === id);
   currentPropId = id;
   currentCat = cat;
   const gallery = prop.images.length > 1 ? `<div class="gallery">${prop.images.slice(1).map(img => `<img src="${img}" alt="Галерея">`).join('')}</div>` : '';
@@ -99,26 +108,21 @@ function showFullProperty(cat, id) {
   instantScroll('#propertyDetail');
   confetti();
 }
-
 function backToList() {
   document.querySelectorAll('section:not(#propertyDetail)').forEach(sec => sec.style.display = 'block');
   document.getElementById('propertyDetail').style.display = 'none';
   instantScroll('#' + currentCat);
 }
-
 function closeModal(id) {
   document.getElementById(id).classList.remove('show');
 }
-
 function contactWhatsapp() {
   window.open('https://wa.me/77714829862?text=Интересуюсь объектом ID: ' + currentPropId, '_blank');
 }
-
 function openRequestModal() {
   document.getElementById('requestPropId').value = currentPropId;
   document.getElementById('requestModal').classList.add('show');
 }
-
 function submitPropertyRequest(e) {
   e.preventDefault();
   const propId = document.getElementById('requestPropId').value;
@@ -131,25 +135,20 @@ function submitPropertyRequest(e) {
   closeModal('requestModal');
   confetti();
 }
-
 function shareProperty() {
   const url = window.location.href + '#property-' + currentPropId;
   navigator.clipboard.writeText(url).then(() => alert('Ссылка скопирована!'));
 }
-
 function saveFavorite() {
   alert('Добавлено в избранное! (Функция в разработке)');
 }
-
 function openLoginModal() {
   document.getElementById('loginModal').classList.add('show');
 }
-
 function openRegisterModal() {
   closeModal('loginModal');
   document.getElementById('registerModal').classList.add('show');
 }
-
 function register() {
   const username = document.getElementById('regUsername').value.trim();
   const password = document.getElementById('regPassword').value.trim();
@@ -163,7 +162,6 @@ function register() {
   openLoginModal();
   confetti();
 }
-
 function login() {
   const username = document.getElementById('loginUsername').value.trim();
   const password = document.getElementById('loginPassword').value.trim();
@@ -176,13 +174,11 @@ function login() {
   alert('Добро пожаловать, ' + username + '!');
   confetti();
 }
-
 function logout() {
   currentUser = null;
   localStorage.removeItem('currentUser');
   updateAuthUI();
 }
-
 function updateAuthUI() {
   currentUser = JSON.parse(localStorage.getItem('currentUser'));
   document.getElementById('loginLink').style.display = currentUser ? 'none' : 'block';
@@ -190,11 +186,9 @@ function updateAuthUI() {
   document.getElementById('adminLink').style.display = currentUser && currentUser.role === 'admin' ? 'block' : 'none';
   document.getElementById('profileLink').style.display = currentUser ? 'block' : 'none';
 }
-
 function openProfile() {
   alert('Профиль: ' + currentUser.username + ' (' + currentUser.role + ')');
 }
-
 function submitRequest(e) {
   e.preventDefault();
   const form = e.target;
