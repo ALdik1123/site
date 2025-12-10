@@ -1,67 +1,342 @@
-:root{--p:#6366f1;--a:#a78bfa;--r:#10b981;--l:#f8fafc;--d:#0f172a;--glass:rgba(255,255,255,.15);}
-*{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Inter',sans-serif;background:var(--l);color:#1e293b;line-height:1.6;overflow-x:hidden;}
-.container{max-width:1400px;margin:0 auto;padding:0 20px;}
-
-header{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,.97);backdrop-filter:blur(16px);padding:16px 0;box-shadow:0 4px 20px rgba(0,0,0,.1);}
-.header-flex{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:15px;}
-.logo{font-size:32px;font-weight:900;background:linear-gradient(135deg,var(--p),var(--a));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-nav ul{display:flex;gap:18px;list-style:none;flex-wrap:wrap;justify-content:center;}
-nav a, nav button{font-size:15px;color:#444;cursor:pointer;}
-.lang button{padding:8px 16px;border-radius:30px;font-weight:700;font-size:14px;}
-.lang button.active{background:var(--p);color:white;}
-
-.hero{height:100vh;position:relative;overflow:hidden;display:flex;align-items:center;}
-.slides{position:absolute;inset:0;}
-.slide{position:absolute;inset:0;background:center/cover no-repeat;opacity:0;transition:opacity 1.8s;}
-.slide.active{opacity:1;}
-.slide::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,.65),rgba(99,102,241,.4));}
-.hero-content{z-index:2;text-align:center;color:white;padding:0 20px;}
-.hero-content h1{font-size:42px;margin-bottom:16px;font-family:'Playfair Display',serif;}
-.hero-content p{font-size:18px;margin-bottom:30px;opacity:0.95;}
-.hero-buttons{display:flex;flex-direction:column;gap:16px;align-items:center;}
-.btn{padding:16px 40px;border:none;border-radius:50px;font-weight:700;font-size:18px;cursor:pointer;width:90%;max-width:400px;}
-.btn.primary{background:var(--p);color:white;}
-.btn.success{background:var(--r);color:white;}
-
-.section{padding:90px 0;}
-.section-title{font-size:36px;text-align:center;margin-bottom:50px;font-family:'Playfair Display',serif;}
-.bg-light{background:#f0f8ff;}
-.search{width:100%;padding:14px 20px;border-radius:50px;border:2px solid #ddd;margin-bottom:30px;font-size:16px;}
-
-.grid{display:grid;grid-template-columns:1fr;gap:28px;padding:0 10px;}
-.card{background:white;border-radius:20px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.12);cursor:pointer;transition:.4s;position:relative;}
-.card:hover{transform:translateY(-12px);box-shadow:0 20px 50px rgba(0,0,0,.2);}
-.card img{width:100%;height:240px;object-fit:cover;}
-.card-body{padding:22px;}
-.card-body h3{font-size:20px;margin-bottom:8px;}
-.price{font-size:26px;font-weight:900;color:var(--p);}
-.price.r{color:var(--r);}
-.featured-badge{position:absolute;top:12px;left:12px;background:#ff2d95;color:white;padding:6px 14px;border-radius:30px;font-size:13px;font-weight:700;z-index:5;}
-
-.detail-page{position:fixed;top:0;left:0;width:100%;height:100%;background:white;z-index:999;overflow-y:auto;display:none;padding:90px 0;}
-.detail-page.show{display:block;}
-
-.whatsapp-float{position:fixed;bottom:20px;right:20px;background:#25d366;color:white;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;box-shadow:0 8px 25px rgba(0,0,0,.3);z-index:999;}
-
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;align-items:center;justify-content:center;z-index:10000;padding:20px;}
-.modal.show{display:flex;}
-.modal-content{background:white;padding:35px;border-radius:20px;width:100%;max-width:460px;position:relative;}
-.close{position:absolute;top:15px;right:20px;font-size:30px;cursor:pointer;color:#888;}
-.tabs{display:flex;gap:10px;margin:20px 0;}
-.tabs button{padding:12px 20px;border:none;border-radius:50px;background:#eee;cursor:pointer;}
-.tabs button.active{background:var(--p);color:white;}
-.form input, .form textarea, .form select{width:100%;padding:14px;margin:10px 0;border:2px solid #ddd;border-radius:12px;font-size:16px;}
-.form textarea{resize:vertical;}
-
-/* Адаптив — идеально на телефоне */
-@media (min-width: 640px) {
-  .hero-content h1{font-size:48px;}
-  .grid{grid-template-columns:repeat(2,1fr);}
+/* css/style.css — Полностью мобильно-адаптивная версия 2025 */
+:root{
+  --p:#6366f1;--a:#a78bfa;--r:#10b981;--d:#0f172a;--l:#f8fafc;--g:#64748b;
+  --glass:rgba(255,255,255,.15);--s:#0ea5e9;
+  --header-height: 70px;
+  --header-height-scrolled: 60px;
 }
-@media (min-width: 1024px) {
-  .hero-content h1{font-size:56px;}
-  .grid{grid-template-columns:repeat(3,1fr);}
-  .hero-buttons{flex-direction:row;gap:30px;}
-  .btn{width:auto;}
+
+* {margin:0;padding:0;box-sizing:border-box;}
+html {scroll-behavior:smooth;}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--l);
+  color:#1e293b;
+  overflow-x:hidden;
+  line-height:1.6;
+  -webkit-tap-highlight-color:transparent;
+}
+
+/* ===== КОНТЕЙНЕР ===== */
+.container{
+  width:100%;
+  max-width:1380px;
+  margin:0 auto;
+  padding:0 20px;
+}
+
+/* ===== ТИПОГРАФИКА ===== */
+h1,h2,h3{font-family:'Playfair Display',serif;}
+h1{font-size:clamp(2.5rem, 8vw, 4.5rem);}
+h2{font-size:clamp(2rem, 6vw, 3.5rem);}
+.section-title{font-size:clamp(2.2rem, 7vw, 3.8rem);}
+
+/* ===== ХЕДЕР ===== */
+header{
+  position:fixed;
+  top:0;left:0;right:0;
+  z-index:1000;
+  background:rgba(255,255,255,.95);
+  backdrop-filter:blur(16px);
+  height:var(--header-height);
+  padding:0;
+  border-bottom:1px solid rgba(0,0,0,.05);
+  transition:all .4s ease;
+}
+header.scrolled{
+  height:var(--header-height-scrolled);
+  padding:8px 0;
+  box-shadow:0 10px 40px rgba(0,0,0,.1);
+}
+
+.header-flex{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  height:100%;
+  gap:15px;
+}
+
+.logo{
+  font-size:clamp(28px, 8vw, 38px);
+  font-weight:900;
+  background:linear-gradient(135deg,var(--p),var(--a));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+/* Мобильное меню */
+nav{
+  position:fixed;
+  top:var(--header-height);
+  left:0;right:0;
+  background:rgba(255,255,255,.98);
+  backdrop-filter:blur(20px);
+  padding:20px;
+  transform:translateY(-100%);
+  opacity:0;
+  visibility:hidden;
+  transition:all .4s ease;
+  box-shadow:0 10px 30px rgba(0,0,0,.1);
+}
+nav.active{
+  transform:translateY(0);
+  opacity:1;
+  visibility:visible;
+}
+nav ul{
+  flex-direction:column;
+  gap:20px;
+  align-items:center;
+}
+nav a, nav button{
+  font-size:18px;
+  padding:10px 0;
+  width:100%;
+  text-align:center;
+}
+
+/* Бургер-кнопка */
+.menu-toggle{
+  display:block;
+  width:30px;
+  height:22px;
+  cursor:pointer;
+  z-index:1001;
+}
+.menu-toggle span{
+  display:block;
+ height:3px;
+ background:#333;
+ margin:5px 0;
+ border-radius:3px;
+ transition:.3s;
+}
+.menu-toggle.active span:nth-child(1){transform:rotate(45deg) translate(6px,6px);}
+.menu-toggle.active span:nth-child(2){opacity:0;}
+.menu-toggle.active span:nth-child(3){transform:rotate(-45deg) translate(7px,-8px);}
+
+.lang{
+  display:flex;
+  gap:8px;
+}
+.lang button{
+  padding:8px 16px;
+  font-size:14px;
+  border-radius:30px;
+}
+
+/* Десктоп — показываем обычное меню */
+@media (min-width:992px){
+  .menu-toggle{display:none;}
+  nav{
+    position:static;
+    transform:none;
+    opacity:1;
+    visibility:visible;
+    padding:0;
+    box-shadow:none;
+    background:none;
+  }
+  nav ul{
+    flex-direction:row;
+    gap:36px;
+  }
+  nav a, nav button{font-size:17px;}
+}
+
+/* ===== HERO ===== */
+.hero{
+  height:100vh;
+  min-height:620px;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color:white;
+  overflow:hidden;
+}
+.hero-content{padding:0 20px;}
+.hero-buttons{
+  margin-top:30px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:15px;
+  justify-content:center;
+}
+.hero-buttons .btn{
+  min-width:160px;
+  padding:16px 32px;
+  font-size:18px;
+}
+
+/* Слайды */
+.slides .slide{
+  background-position:center;
+  background-size:cover;
+}
+
+/* ===== СЕКЦИИ ===== */
+.section{padding:100px 0;}
+@media (max-width:768px){.section{padding:80px 0;}}
+@media (max-width:480px){.section{padding:60px 0;}}
+
+/* ===== ГРИД КАРТОЧЕК ===== */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(300px,1fr));
+  gap:30px;
+}
+@media (max-width:480px){
+  .grid{grid-template-columns:1fr; gap:25px;}
+}
+
+/* Карточки */
+.card{
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 10px 30px rgba(0,0,0,.08);
+  transition:transform .4s, box-shadow .4s;
+}
+.card:hover{
+  transform:translateY(-15px);
+  box-shadow:0 25px 60px rgba(0,0,0,.15);
+}
+.card img{
+  height:240px;
+  object-fit:cover;
+}
+.card-body{padding:24px;}
+.price{font-size:28px;}
+
+/* ===== КНОПКИ ===== */
+.btn{
+  padding:16px 32px;
+  border-radius:50px;
+  font-size:17px;
+  font-weight:600;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  min-height:56px;
+  touch-action:manipulation;
+}
+@media (max-width:480px){
+  .btn{padding:14px 28px; font-size:16px;}
+}
+
+/* ===== WhatsApp плавающая кнопка ===== */
+.whatsapp-float{
+  width:58px;
+  height:58px;
+  bottom:20px;
+  right:20px;
+  font-size:30px;
+  box-shadow:0 8px 25px rgba(37,211,102,.4);
+}
+
+/* ===== ФОРМЫ ===== */
+.form-group label{font-size:15px;}
+.form-group input,
+.form-group textarea,
+.form-group select{
+  padding:14px 18px;
+  border-radius:12px;
+  font-size:16px;
+}
+.contact-form{max-width:100%; padding:0 10px;}
+
+/* ===== МОДАЛЬНЫЕ ОКНА ===== */
+.modal-content{
+  width:95%;
+  max-width:520px;
+  margin:20px;
+  border-radius:20px;
+  padding:30px 25px;
+}
+.modal-content.large{max-width:720px;}
+@media (max-width:480px){
+  .modal-content{padding:25px 20px;}
+  .modal-content h2{font-size:26px;}
+}
+
+/* ===== ДЕТАЛИ ОБЪЕКТА ===== */
+#propertyDetail{
+  padding-top:90px;
+  min-height:100vh;
+}
+#propertyDetail .container{padding-top:20px;}
+#propertyDetail h2{font-size:32px; margin:20px 0;}
+.gallery{
+  display:flex;
+  overflow-x:auto;
+  gap:12px;
+  padding:10px 0;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+}
+.gallery img{
+  width:280px;
+  height:200px;
+  flex-shrink:0;
+  border-radius:12px;
+  object-fit:cover;
+  scroll-snap-align:start;
+}
+#propertyActions{
+  flex-wrap:wrap;
+ gap:12px;
+}
+#propertyActions .btn{
+  flex:1 1 140px;
+  font-size:15px;
+  padding:14px 10px;
+}
+
+/* ===== АДМИНКА НА ТЕЛЕФОНЕ ===== */
+#adminTabs{
+  flex-wrap:wrap;
+  gap:10px;
+}
+#adminTabs button{
+  flex:1;
+  padding:12px 10px;
+  font-size:14px;
+}
+
+/* ===== ДОПОЛНИТЕЛЬНЫЕ УЛУЧШЕНИЯ ДЛЯ МОБИЛЬНЫХ ===== */
+@media (max-width:992px){
+  header{height:var(--header-height);}
+  .header-flex{gap:15px;}
+  .lang button{padding:6px 12px; font-size:13px;}
+}
+
+@media (max-width:768px){
+  .hero-buttons{flex-direction:column; align-items:center;}
+  .benefits-grid{grid-template-columns:1fr;}
+  .glass-card{padding:30px 20px;}
+}
+
+@media (max-width:480px){
+  .logo{font-size:32px;}
+  .section-title{margin-bottom:50px;}
+  .card img{height:200px;}
+  .card-body{padding:20px;}
+  .price{font-size:26px;}
+  .whatsapp-float{width:54px;height:54px;font-size:28px;bottom:15px;right:15px;}
+}
+
+/* Убираем лишние анимации на мобильных для производительности */
+@media (prefers-reduced-motion: reduce){
+  *{transition:none !important; animation:none !important;}
+}
+
+/* Плавный скролл на iOS */
+*{-webkit-overflow-scrolling:touch;}
+
+/* Фикс для фиксированного хедера при открытии клавиатуры */
+@supports (-webkit-touch-callout:none){
+  header{transition:none;}
 }
