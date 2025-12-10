@@ -5,7 +5,6 @@ function openAdminPanel() {
   renderEditProps();
   document.getElementById('adminPanel').classList.add('show');
 }
-
 function showAdminTab(tab) {
   document.getElementById('addPropTab').style.display = tab === 'addProp' ? 'block' : 'none';
   document.getElementById('editPropsTab').style.display = tab === 'editProps' ? 'block' : 'none';
@@ -13,7 +12,6 @@ function showAdminTab(tab) {
   document.querySelectorAll('#adminTabs button').forEach(b => b.classList.remove('active'));
   document.querySelector(`#adminTabs button[onclick="showAdminTab('${tab}')"]`).classList.add('active');
 }
-
 function addProperty() {
   const cat = document.getElementById('adminCategory').value;
   const ru = document.getElementById('adminTitleRu').value.trim();
@@ -26,9 +24,7 @@ function addProperty() {
   const imgInput = document.getElementById('adminImg').value.trim();
   const tagsInput = document.getElementById('adminTags').value.trim();
   const type = document.getElementById('adminType').value;
-
   if (!ru || !kk || !price || !desc || !location) return alert("Заполните обязательные поля: Название, Цена, Описание, Локация!");
-
   const images = imgInput ? imgInput.split(',').map(s => s.trim()).filter(Boolean) : ["https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200"];
   const tags = tagsInput ? tagsInput.split(',').map(t => t.trim()) : ["Новое"];
   const featuresArr = featuresInput ? featuresInput.split(',').map(f => f.trim()) : [];
@@ -38,10 +34,8 @@ function addProperty() {
     floor: featuresArr[2],
     land: featuresArr[3]
   };
-
   const newId = Math.max(...[...properties.sale, ...properties.rental].map(p => p.id || 0)) + 1;
   const newProp = {id: newId, ru, kk, price, desc, location, year, features, images, tags, type};
-
   properties[cat].unshift(newProp);
   localStorage.setItem('properties_' + cat, JSON.stringify(properties[cat]));
   render(cat);
@@ -49,7 +43,6 @@ function addProperty() {
   confetti();
   document.querySelector('#addPropTab').querySelectorAll('input, textarea, select').forEach(el => el.value = '');
 }
-
 function renderRequests() {
   const list = document.getElementById('requestsList');
   list.innerHTML = requests.sort((a,b) => new Date(b.date) - new Date(a.date)).map((r,i) => `
@@ -68,7 +61,6 @@ function renderRequests() {
     </div>
   `).join('');
 }
-
 function deleteRequest(index) {
   if (!confirm("Удалить заявку?")) return;
   requests.splice(index, 1);
@@ -76,7 +68,6 @@ function deleteRequest(index) {
   renderRequests();
   alert("Заявка удалена!");
 }
-
 function openEditRequest(index) {
   const r = requests[index];
   const modal = document.createElement('div');
@@ -102,7 +93,6 @@ function openEditRequest(index) {
   `;
   document.body.appendChild(modal);
 }
-
 function saveEditRequest(index, btn) {
   const name = document.getElementById('editReqName').value.trim();
   const phone = document.getElementById('editReqPhone').value.trim();
@@ -115,7 +105,6 @@ function saveEditRequest(index, btn) {
   alert("Заявка обновлена!");
   confetti();
 }
-
 function openResponseModal(index) {
   const modal = document.createElement('div');
   modal.className = 'modal show';
@@ -130,7 +119,6 @@ function openResponseModal(index) {
   `;
   document.body.appendChild(modal);
 }
-
 function saveResponse(index, btn) {
   const response = document.getElementById('responseText').value.trim();
   if (!response) return alert('Напишите ответ');
@@ -141,7 +129,6 @@ function saveResponse(index, btn) {
   alert("Ответ сохранен!");
   confetti();
 }
-
 function renderEditProps() {
   const list = document.getElementById('editPropsList');
   const allProps = [...properties.sale, ...properties.rental];
@@ -155,7 +142,6 @@ function renderEditProps() {
     </div>
   `).join('');
 }
-
 function openEditProperty(id) {
   const prop = [...properties.sale, ...properties.rental].find(p => p.id === id);
   const cat = properties.sale.find(p => p.id === id) ? 'sale' : 'rental';
@@ -207,7 +193,6 @@ function openEditProperty(id) {
   `;
   document.getElementById('editPropertyModal').classList.add('show');
 }
-
 function saveEditProperty() {
   const id = parseInt(document.getElementById('editId').value);
   const cat = document.getElementById('editCat').value;
@@ -221,9 +206,7 @@ function saveEditProperty() {
   const imgInput = document.getElementById('editImg').value.trim();
   const tagsInput = document.getElementById('editTags').value.trim();
   const type = document.getElementById('editType').value;
-
   if (!ru || !kk || !price || !desc || !location) return alert("Заполните обязательные поля!");
-
   const images = imgInput.split(',').map(s => s.trim()).filter(Boolean);
   const tags = tagsInput.split(',').map(t => t.trim());
   const featuresArr = featuresInput.split(',').map(f => f.trim());
@@ -233,7 +216,6 @@ function saveEditProperty() {
     floor: featuresArr[2],
     land: featuresArr[3]
   };
-
   const index = properties[cat].findIndex(p => p.id === id);
   if (index !== -1) {
     properties[cat][index] = { ...properties[cat][index], ru, kk, price, desc, location, year, features, images, tags, type };
@@ -245,7 +227,6 @@ function saveEditProperty() {
     confetti();
   }
 }
-
 function deleteProperty(id) {
   if (!confirm("Удалить объект?")) return;
   properties.sale = properties.sale.filter(p => p.id !== id);
