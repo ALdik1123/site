@@ -147,134 +147,210 @@ nav a:hover::after{width:100%;}
   border-radius: 16px;
   box-shadow: 0 6px 20px rgba(0,0,0,.08);
   font-size: 17px;
-}
-/* МОБИЛЬНАЯ АДАПТАЦИЯ — добавьте в конец style.css */
+} 
+/* ===== Адаптивные стили для мобильных устройств ===== */
 @media (max-width: 768px) {
-  .container { padding: 0 15px; }
-  
-  /* Хедер: компактнее */
-  header { padding: 12px 0; }
-  header.scrolled { padding: 8px 0; }
-  .header-flex { gap: 10px; flex-wrap: wrap; }
-  .logo { font-size: 28px; }
-  nav ul { 
-    display: none; /* Скрываем меню на мобильных — используем бургер */
-    flex-direction: column; 
-    gap: 15px; 
-    position: absolute; 
-    top: 100%; 
-    left: 0; 
-    right: 0; 
-    background: rgba(255,255,255,.98); 
-    padding: 20px; 
-    border-radius: 0 0 20px 20px; 
-    box-shadow: 0 10px 30px rgba(0,0,0,.1);
+  :root {
+    --font-size: 16px;
   }
-  nav ul.active { display: flex; } /* Показываем при активации бургера */
-  nav a, nav button { font-size: 16px; padding: 10px; text-align: center; width: 100%; }
-  
-  .lang { 
-    order: 3; /* Языки в конец на маленьких экранах */
+
+  * {
+    box-sizing: border-box;
   }
-  .lang button { padding: 8px 16px; font-size: 14px; }
-  
-  /* Hero: меньше высота */
-  .hero { min-height: 80vh; height: auto; padding: 100px 0 50px; }
-  .hero-content { padding: 0 10px; }
-  .typewriter { font-size: 2rem; border-right-width: 2px; }
-  .hero-buttons { flex-direction: column; gap: 10px; }
-  .hero-buttons .btn { width: 100%; max-width: 250px; padding: 16px 20px; font-size: 16px; }
-  
-  /* Секции: меньше отступы */
-  .section { padding: 80px 0; }
-  .section-title { font-size: 2.5rem; margin-bottom: 40px; }
-  .section-title::after { width: 80px; height: 4px; bottom: -10px; }
-  
-  /* Грид карточек: 1 колонка */
-  .grid { 
-    grid-template-columns: 1fr; 
-    gap: 25px; 
+
+  body {
+    font-size: var(--font-size);
+    overflow-x: hidden;
   }
-  .card { 
-    animation: none; /* Убираем анимацию для плавности на мобильных */
+
+  .container {
+    padding: 0 15px;
+    max-width: 100%;
   }
-  .card img { height: 220px; }
-  .card-body { padding: 24px; }
-  .price { font-size: 28px; }
-  
-  /* Benefits: 1 колонка */
-  .benefits-grid { grid-template-columns: 1fr; gap: 20px; }
-  .benefit-card { padding: 30px 20px; }
-  
-  /* WhatsApp: меньше */
-  .whatsapp-float { width: 56px; height: 56px; bottom: 20px; right: 20px; font-size: 28px; }
-  
-  /* Формы: полная ширина */
-  .contact-form { max-width: 100%; padding: 0; }
-  .form-group input, .form-group textarea { padding: 14px; font-size: 16px; } /* Под палец */
-  
-  /* Модалки: компактнее */
-  .modal-content { width: 95%; max-width: 400px; padding: 30px 20px; margin: 10px; }
-  .large { max-width: 90%; }
-  
-  /* Детали объекта */
-  #propertyDetail .container { padding-top: 70px; }
-  #propertyDetail h2 { font-size: 2rem; }
-  #propertyDetail .price { font-size: 28px; }
-  .gallery { gap: 8px; }
-  .gallery img { width: 160px; height: 120px; }
-  #propertyActions { flex-direction: column; gap: 10px; }
-  #propertyActions .btn { width: 100%; padding: 14px; font-size: 16px; }
-  
-  /* Админка */
-  #adminTabs { flex-wrap: wrap; gap: 8px; }
-  #adminTabs button { padding: 10px 16px; font-size: 14px; flex: 1; min-width: 120px; }
-  
-  /* Убираем hover-эффекты на таче */
-  .card:hover, .btn:hover, .glass-card:hover { transform: none; } /* Нет hover на мобильных */
+
+  /* Header */
+  header {
+    padding: 12px 0;
+  }
+
+  .header-flex {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  nav ul {
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
+
+  nav a, nav button {
+    font-size: 16px;
+  }
+
+  .logo {
+    font-size: 32px;
+  }
+
+  .lang button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  /* Hero */
+  .hero {
+    min-height: 600px;
+    padding-top: 80px;
+  }
+
+  .hero-content {
+    text-align: center;
+    padding: 0 20px;
+  }
+
+  .hero h1 {
+    font-size: 32px;
+  }
+
+  .hero p {
+    font-size: 18px;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .btn {
+    padding: 12px 24px;
+    font-size: 16px;
+  }
+
+  /* Sections */
+  .section {
+    padding: 80px 0;
+  }
+
+  .section-title {
+    font-size: 36px;
+  }
+
+  .section-title::after {
+    width: 80px;
+  }
+
+  /* Grid */
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .card {
+    max-width: 100%;
+  }
+
+  .card img {
+    height: 200px;
+  }
+
+  /* Benefits */
+  .benefits-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .glass-card {
+    padding: 20px;
+  }
+
+  /* Form */
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    padding: 10px;
+  }
+
+  /* Modal */
+  .modal-content {
+    width: 95%;
+    padding: 20px;
+  }
+
+  /* Property Detail */
+  #propertyDetail {
+    padding: 40px 0;
+  }
+
+  #propertyDetail .container {
+    padding-top: 100px;
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .gallery-grid img {
+    height: 140px;
+  }
+
+  /* WhatsApp Float */
+  .whatsapp-float {
+    width: 56px;
+    height: 56px;
+    font-size: 28px;
+  }
+
+  /* Admin Panel */
+  #adminTabs {
+    flex-wrap: wrap;
+  }
+
+  #adminTabs button {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+
+  .edit-card {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .edit-card button {
+    width: 100%;
+    margin: 5px 0;
+  }
+
+  /* Filters */
+  .filters input {
+    max-width: 100%;
+  }
 }
 
+/* Для очень маленьких экранов (например, iPhone 5/SE) */
 @media (max-width: 480px) {
-  .container { padding: 0 10px; }
-  .logo { font-size: 24px; }
-  .hero { padding: 80px 0 30px; }
-  .section { padding: 60px 0; }
-  .section-title { font-size: 2rem; margin-bottom: 30px; }
-  .card img { height: 180px; }
-  .card-body { padding: 20px; }
-  .price { font-size: 24px; }
-  .whatsapp-float { width: 50px; height: 50px; font-size: 24px; bottom: 15px; right: 15px; }
-  .modal-content { padding: 25px 15px; }
-  #propertyDetail .container { padding-top: 60px; }
-}
+  .hero h1 {
+    font-size: 28px;
+  }
 
-/* Бургер-меню стили (для мобильных) */
-.menu-toggle {
-  display: none; /* Скрыто на десктопе */
-  flex-direction: column;
-  justify-content: space-around;
-  width: 30px;
-  height: 24px;
-  cursor: pointer;
-  z-index: 1001;
-}
-.menu-toggle span {
-  height: 3px;
-  width: 100%;
-  background: #333;
-  border-radius: 10px;
-  transition: all 0.3s;
-}
-.menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-.menu-toggle.active span:nth-child(2) { opacity: 0; }
-.menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -6px); }
+  .hero p {
+    font-size: 16px;
+  }
 
-@media (max-width: 768px) {
-  .menu-toggle { display: flex; order: 2; } /* Показываем бургер на мобильных */
-}
+  .section-title {
+    font-size: 30px;
+  }
 
-/* Плавность на мобильных */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
-}
+  .btn {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
 
+  .card img {
+    height: 180px;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+}
