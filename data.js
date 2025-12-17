@@ -67,4 +67,4 @@ let requests = JSON.parse(localStorage.getItem('requests') || '[]');
 let users = JSON.parse(localStorage.getItem('users') || '[]');
 let currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
 let currentPropId = null;
-let currentCat = null;
+let currentCat = null;
